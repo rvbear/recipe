@@ -4,7 +4,7 @@ import com.potato.recipe.user.bean.small.CreateUserDAOBean;
 import com.potato.recipe.user.bean.small.GetUserDAOBean;
 import com.potato.recipe.user.bean.small.SaveUserDAOBean;
 import com.potato.recipe.user.domain.UserDAO;
-import com.potato.recipe.user.domain.dto.RequestSignUpDTO;
+import com.potato.recipe.user.domain.dto.RequestUserDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,8 +19,8 @@ public class SaveUserBean {
         this.getUserDAOBean = getUserDAOBean;
     }
 
-    public Boolean exec(RequestSignUpDTO requestSignUpDTO) {
-        UserDAO userDAO = createUserDAOBean.exec(requestSignUpDTO);
+    public Boolean exec(RequestUserDTO requestUserDTO) {
+        UserDAO userDAO = createUserDAOBean.exec(requestUserDTO);
         saveUserDAOBean.exec(userDAO);
 
         return getUserDAOBean.exec(userDAO.getId()) != null;
