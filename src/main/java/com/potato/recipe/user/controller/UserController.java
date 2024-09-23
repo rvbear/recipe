@@ -44,4 +44,17 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, Object>> logout() {
+        // 세션 추가 후 작업 진행 예정
+        Boolean isSuccess = true;
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", isSuccess);
+        responseMap.put("message", isSuccess ? "로그아웃 성공했습니다." : "로그아웃에 실패했습니다.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
 }
