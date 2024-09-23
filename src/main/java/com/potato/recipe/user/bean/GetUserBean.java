@@ -2,7 +2,7 @@ package com.potato.recipe.user.bean;
 
 import com.potato.recipe.user.bean.small.GetUserDAOBean;
 import com.potato.recipe.user.domain.UserDAO;
-import com.potato.recipe.user.domain.dto.RequestUserDTO;
+import com.potato.recipe.user.domain.dto.RequestLoginDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class GetUserBean {
         this.getUserDAOBean = getUserDAOBean;
     }
 
-    public UserDAO exec(RequestUserDTO requestUserDTO) {
-        return getUserDAOBean.exec(requestUserDTO.getUserName(), requestUserDTO.getPassword());
+    public UserDAO exec(RequestLoginDTO requestLoginDTO) {
+        return getUserDAOBean.exec(requestLoginDTO.getUserName(), requestLoginDTO.getPassword());
     }
 }

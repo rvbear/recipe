@@ -18,6 +18,10 @@ public class GetUserDAOBean {
         return userDAORepository.findById(id).orElse(null);
     }
 
+    public UserDAO exec(String userName) {
+        return userDAORepository.findByUserName(userName);
+    }
+
     public UserDAO exec(String userName, String password) {
         return userDAORepository.findByUserNameAndPassword(userName, password);
     }

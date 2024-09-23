@@ -1,7 +1,9 @@
 package com.potato.recipe.user.controller;
 
 import com.potato.recipe.user.domain.UserDAO;
-import com.potato.recipe.user.domain.dto.RequestUserDTO;
+import com.potato.recipe.user.domain.dto.RequestLoginDTO;
+import com.potato.recipe.user.domain.dto.RequestSignUpDTO;
+import com.potato.recipe.user.domain.dto.RequestUserDuplicateDTO;
 import com.potato.recipe.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,22 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 아이디 중복 검사
+    @PostMapping("/duplicate")
+    public ResponseEntity<Map<String, Object>> duplicate(@RequestBody RequestUserDuplicateDTO requestUserDuplicateDTO) {
+        Boolean isSuccess = userService.duplicate(requestUserDuplicateDTO);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", isSuccess);
+        responseMap.put("message", isSuccess ? "사용할 수 있는 아이디입니다." : "이미 있는 아이디입니다.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<Map<String, Object>> signup(@RequestBody RequestUserDTO requestUserDTO) {
-        Boolean isSuccess = userService.signUp(requestUserDTO);
+    public ResponseEntity<Map<String, Object>> signup(@RequestBody RequestSignUpDTO requestSignUpDTO) {
+        Boolean isSuccess = userService.signUp(requestSignUpDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("isSuccess", isSuccess);
@@ -34,8 +48,8 @@ public class UserController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody RequestUserDTO requestUserDTO) {
-        UserDAO userDAO = userService.login(requestUserDTO);
+    public ResponseEntity<Map<String, Object>> login(@RequestBody RequestLoginDTO requestLoginDTO) {
+        UserDAO userDAO = userService.login(requestLoginDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("isSuccess", userDAO != null);
