@@ -15,6 +15,6 @@ import java.util.UUID;
 public class UserDAO {
     @Id
     UUID id;
-    String password;
     String userName;
+    String password;
 }
