@@ -3,6 +3,7 @@ package com.potato.recipe.post.controller;
 import com.potato.recipe.post.domain.PostDAO;
 import com.potato.recipe.post.domain.dto.RequestSavePostDTO;
 import com.potato.recipe.post.domain.dto.RequestUpdatePostDTO;
+import com.potato.recipe.post.domain.dto.RequestDeletePostDTO;
 import com.potato.recipe.post.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,18 @@ public class PostController {
         responseMap.put("isSuccess", postDAO != null);
         responseMap.put("message", postDAO != null ? "레시피 수정에 성공했습니다." : "레시피 수정에 실패했습니다.");
         responseMap.put("recipeId", postDAO != null ? postDAO.getId() : "00000000-0000-0000-0000-000000000000");
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
+    // 레시피 삭제
+    @DeleteMapping
+    public ResponseEntity<Map<String, Object>> deletePost(@RequestBody RequestDeletePostDTO requestDeletePostDTO) {
+        Boolean isSuccess = postService.deletePost(requestDeletePostDTO);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", isSuccess);
+        responseMap.put("message", isSuccess ? "레시피 삭제에 성공했습니다." : "레시피 삭제에 실패했습니다.");
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }

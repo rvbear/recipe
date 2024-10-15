@@ -23,9 +23,9 @@ public class UpdatePostBean {
         PostDAO postDAO = getPostDAOBean.exec(requestUpdatePostDTO.getRecipeId());
         if(postDAO == null) return null;
 
-        postDAO = updatePostDAOBean.exec(postDAO, requestUpdatePostDTO);
+        PostDAO updatePostDAO = updatePostDAOBean.exec(postDAO, requestUpdatePostDTO);
 
-        savePostDAOBean.exec(postDAO);
+        savePostDAOBean.exec(updatePostDAO);
 
         return getPostDAOBean.exec(postDAO.getId());
     }

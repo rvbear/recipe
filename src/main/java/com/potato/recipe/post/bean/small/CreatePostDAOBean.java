@@ -16,6 +16,7 @@ public class CreatePostDAOBean {
                 .thumbnail(requestSavePostDTO.getThumbnail())
                 .ingredient(requestSavePostDTO.getIngredient())
                 .instructions(requestSavePostDTO.getInstructions())
+                .isDeleted(false)
                 .build();
     }
 }

@@ -30,4 +30,6 @@ public class PostDAO {
     List<Map<String, Object>> ingredient;
     @Convert(converter = ListStringConverter.class)
     List<Map<String, Object>> instructions;
+
+    Boolean isDeleted;
 }
