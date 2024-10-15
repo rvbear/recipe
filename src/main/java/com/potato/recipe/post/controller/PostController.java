@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -56,6 +57,19 @@ public class PostController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("isSuccess", isSuccess);
         responseMap.put("message", isSuccess ? "레시피 삭제에 성공했습니다." : "레시피 삭제에 실패했습니다.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
+    // 레시피 상세 조회
+    @GetMapping("/detail/{recipeId}")
+    public ResponseEntity<Map<String, Object>> getDetailPost(@PathVariable(value = "recipeId") UUID recipeId) {
+        PostDAO postDAO = postService.getDetailPost(recipeId);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", postDAO != null);
+        responseMap.put("message", postDAO != null ? "상세 레시피가 정상 조회되었습니다." : "상세 레시피 조회가 실패했습니다.");
+        responseMap.put("recipe", postDAO);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
