@@ -11,6 +11,7 @@ public class CreatePostDAOBean {
     public PostDAO exec(RequestSavePostDTO requestSavePostDTO) {
         return PostDAO.builder()
                 .id(UUID.randomUUID())
+                .userId(requestSavePostDTO.getUserId())
                 .title(requestSavePostDTO.getTitle())
                 .description(requestSavePostDTO.getDescription())
                 .thumbnail(requestSavePostDTO.getThumbnail())
