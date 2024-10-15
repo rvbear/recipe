@@ -82,7 +82,20 @@ public class PostController {
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("isSuccess", !recipeList.isEmpty());
-        responseMap.put("message", !recipeList.isEmpty() ? "상세 레시피가 정상 조회되었습니다." : "상세 레시피 조회가 실패했습니다.");
+        responseMap.put("message", !recipeList.isEmpty() ? "전체 레시피가 정상 조회되었습니다." : "전체 레시피 조회가 실패했습니다.");
+        responseMap.put("recipeList", recipeList);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
+    // 레시피 유저별 조회
+    @GetMapping("{userId}/all")
+    public ResponseEntity<Map<String, Object>> getPostAllByUserId(@PathVariable(value = "userId") UUID userId) {
+        List<PostDAO> recipeList = postService.getPostAllByUserId(userId);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", !recipeList.isEmpty());
+        responseMap.put("message", !recipeList.isEmpty() ? "유저별 레시피가 정상 조회되었습니다." : "유저별 레시피 조회가 실패했습니다.");
         responseMap.put("recipeList", recipeList);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);

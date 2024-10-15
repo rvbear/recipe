@@ -17,17 +17,20 @@ public class PostService {
     private final DeletePostBean deletePostBean;
     private final GetPostBean getPostBean;
     private final GetPostAllBean getPostAllBean;
+    private final GetPostAllByUserIdBean getPostAllByUserIdBean;
 
     public PostService (SavePostBean savePostBean,
                         UpdatePostBean updatePostBean,
                         DeletePostBean deletePostBean,
                         GetPostBean getPostBean,
-                        GetPostAllBean getPostAllBean) {
+                        GetPostAllBean getPostAllBean,
+                        GetPostAllByUserIdBean getPostAllByUserIdBean) {
         this.savePostBean = savePostBean;
         this.updatePostBean = updatePostBean;
         this.deletePostBean = deletePostBean;
         this.getPostBean = getPostBean;
         this.getPostAllBean = getPostAllBean;
+        this.getPostAllByUserIdBean = getPostAllByUserIdBean;
     }
 
     public PostDAO savePost(RequestSavePostDTO requestSavePostDTO) {
@@ -48,5 +51,9 @@ public class PostService {
 
     public List<PostDAO> getPostAll() {
         return getPostAllBean.exec();
+    }
+
+    public List<PostDAO> getPostAllByUserId(UUID userId) {
+        return getPostAllByUserIdBean.exec(userId);
     }
 }

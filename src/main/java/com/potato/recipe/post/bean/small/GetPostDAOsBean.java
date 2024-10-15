@@ -5,6 +5,7 @@ import com.potato.recipe.post.repository.PostRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class GetPostDAOsBean {
@@ -16,5 +17,9 @@ public class GetPostDAOsBean {
 
     public List<PostDAO> exec() {
         return postRepository.findAll();
+    }
+
+    public List<PostDAO> exec(UUID userId) {
+        return postRepository.findAllByUserId(userId);
     }
 }
