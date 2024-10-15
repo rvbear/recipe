@@ -15,6 +15,9 @@ public class GetPostDAOBean {
     }
 
     public PostDAO exec(UUID id) {
-        return postRepository.findById(id).orElse(null);
+        PostDAO postDAO = postRepository.findById(id).orElse(null);
+        if(postDAO == null) return null;
+
+        return postDAO.getIsDeleted() ? null : postDAO;
     }
 }

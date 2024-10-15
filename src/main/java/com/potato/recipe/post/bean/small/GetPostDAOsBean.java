@@ -16,10 +16,10 @@ public class GetPostDAOsBean {
     }
 
     public List<PostDAO> exec() {
-        return postRepository.findAll();
+        return postRepository.findAllByIsDeleted(false);
     }
 
     public List<PostDAO> exec(UUID userId) {
-        return postRepository.findAllByUserId(userId);
+        return postRepository.findAllByUserIdAndIsDeleted(userId, false);
     }
 }

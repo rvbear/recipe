@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<PostDAO, UUID> {
-    List<PostDAO> findAllByUserId(UUID userId);
+    List<PostDAO> findAllByUserIdAndIsDeleted(UUID userId, Boolean isDeleted);
+    List<PostDAO> findAllByIsDeleted(Boolean isDeleted);
 }
