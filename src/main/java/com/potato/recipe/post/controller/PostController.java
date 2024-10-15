@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -63,13 +64,26 @@ public class PostController {
 
     // 레시피 상세 조회
     @GetMapping("/detail/{recipeId}")
-    public ResponseEntity<Map<String, Object>> getDetailPost(@PathVariable(value = "recipeId") UUID recipeId) {
-        PostDAO postDAO = postService.getDetailPost(recipeId);
+    public ResponseEntity<Map<String, Object>> getPost(@PathVariable(value = "recipeId") UUID recipeId) {
+        PostDAO postDAO = postService.getPost(recipeId);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("isSuccess", postDAO != null);
         responseMap.put("message", postDAO != null ? "상세 레시피가 정상 조회되었습니다." : "상세 레시피 조회가 실패했습니다.");
         responseMap.put("recipe", postDAO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseMap);
+    }
+
+    // 레시피 전체 조회
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getPostAll() {
+        List<PostDAO> recipeList = postService.getPostAll();
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("isSuccess", !recipeList.isEmpty());
+        responseMap.put("message", !recipeList.isEmpty() ? "상세 레시피가 정상 조회되었습니다." : "상세 레시피 조회가 실패했습니다.");
+        responseMap.put("recipeList", recipeList);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseMap);
     }
